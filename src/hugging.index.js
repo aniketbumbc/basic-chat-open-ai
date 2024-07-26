@@ -17,7 +17,7 @@ const response = await axios.postForm(
     validateStatus: undefined,
     responseType: 'arraybuffer',
     headers: {
-      Authorization: `Bearer sk-baR19CGr4FHyv2z0Kq5RilNwCwIhzc7c7rODwvsXV9oBPqeQ`,
+      Authorization: `Bearer ${process.env.IMAGE_API_KEY}`,
       Accept: 'image/*',
     },
   }
