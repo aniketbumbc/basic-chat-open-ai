@@ -9,16 +9,17 @@ async function main() {
     messages: [
       {
         role: 'system',
-        content: 'Your response will be like 35 years human',
+        content: 'Your response will be like 100 years human',
       },
       {
         role: 'user',
         content: 'how tall mount everest is?',
       },
     ],
+    n: 2,
   });
 
-  console.log(response.choices[0].message);
+  console.log(response.choices[1].message.content);
   console.log(response.choices[0].message.content);
 }
 
