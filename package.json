@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "node --env-file=.env src/index.js"
+    "start": "node --env-file=.env src/index.js",
+    "start-chat": "node -r ts-node/register --env-file=.env src/chatIndex.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +15,10 @@
     "form-data": "^4.0.0",
     "openai": "^4.53.1",
     "tiktoken": "^1.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }
