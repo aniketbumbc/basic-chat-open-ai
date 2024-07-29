@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --env-file=.env src/index.js",
-    "start-chat": "node -r ts-node/register --env-file=.env src/chatIndex.ts"
+    "start-chat": "node -r ts-node/register --env-file=.env src/tool/index.ts"
   },
   "keywords": [],
   "author": "",
