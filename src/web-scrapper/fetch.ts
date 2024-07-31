@@ -1,4 +1,4 @@
-export const fetBooksApi = async () => {
+export const fetchBooksApi = async () => {
   const url =
     'https://openlibrary.org/search.json?q=cricket&mode=everything&page=2';
   const bookList: any = [];
@@ -13,4 +13,4 @@ export const fetBooksApi = async () => {
   return bookList;
 };
 
-fetBooksApi();
+fetchBooksApi();

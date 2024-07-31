@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 const openai = new OpenAI();
 let booksData: any = [];
-import { fetBooksApi } from './fetch';
+import { fetchBooksApi } from './fetch';
 
 function getTimeOfDay() {
   let date = new Date();
@@ -17,15 +17,6 @@ function getTimeOfDay() {
   return hours + ':' + minutes + ':' + seconds + ' ' + timeOfDay;
 }
 
-async function getBookList() {
-  return await fetBooksApi().then((data) => {
-    if (data.length) {
-      booksData = data;
-      printData(booksData);
-    }
-  });
-}
-
 async function callOpenAIWithTools() {
   const context: OpenAI.Chat.ChatCompletionMessageParam[] = [
     {
@@ -36,7 +27,7 @@ async function callOpenAIWithTools() {
 
     {
       role: 'user',
-      content: 'Get current time of the day and tell me what to eat,wear drink',
+      content: 'I would like to top 10 books from list',
     },
   ];
   const response = await openai.chat.completions.create({
@@ -48,6 +39,14 @@ async function callOpenAIWithTools() {
         function: {
           name: 'getTimeOfDay',
           description: 'Get the time of day',
+        },
+      },
+
+      {
+        type: 'function',
+        function: {
+          name: 'fetchBooksApi',
+          description: 'Getting the list of the books from goodReaders.',
         },
       },
     ],
@@ -68,6 +67,17 @@ async function callOpenAIWithTools() {
         tool_call_id: toolCall.id,
       });
     }
+
+    if (toolName === 'fetchBooksApi') {
+      const toolResp = await fetchBooksApi().then((data) => data);
+      const newJsonResp = JSON.stringify(toolResp);
+      context.push(response.choices[0].message);
+      context.push({
+        role: 'tool',
+        content: newJsonResp,
+        tool_call_id: toolCall.id,
+      });
+    }
   }
 
   const secondResp = await openai.chat.completions.create({
@@ -78,8 +88,4 @@ async function callOpenAIWithTools() {
   console.log(secondResp.choices[0].message.content);
 }
 
-//callOpenAIWithTools();
-getBookList();
-function printData(booksData: any) {
-  console.log(booksData);
-}
+callOpenAIWithTools();
