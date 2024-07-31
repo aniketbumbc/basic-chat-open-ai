@@ -10,16 +10,27 @@ function getTimeOfDay() {
   return '10.20';
 }
 
+function getOrderStatus(orderId: string) {
+  console.log(`Getting order id ${orderId}`);
+  const orderAsNumber = parseInt(orderId);
+
+  if (orderAsNumber % 2 === 0) {
+    return 'IN_PROGRESS';
+  }
+  return 'COMPLETED';
+}
+
 async function callOpenAIWithTools() {
   const context: OpenAI.Chat.ChatCompletionMessageParam[] = [
     {
       role: 'system',
-      content: 'You are helpful assistance that gives information',
+      content:
+        'You are helpful assistance that gives information and order status',
     },
 
     {
       role: 'user',
-      content: 'What is time of the day now morning or evening or night? ',
+      content: 'What is the order of status 34341 ',
     },
   ];
 
@@ -34,6 +45,23 @@ async function callOpenAIWithTools() {
           description: 'Get the time of day',
         },
       },
+      {
+        type: 'function',
+        function: {
+          name: 'getOrderStatus',
+          description: 'Return the status of order',
+          parameters: {
+            type: 'object',
+            properties: {
+              orderId: {
+                type: 'string',
+                description: 'The id of order to get status',
+              },
+            },
+            required: ['orderId'],
+          },
+        },
+      },
     ],
     tool_choice: 'auto', // the engine which call to use
   });
@@ -46,6 +74,18 @@ async function callOpenAIWithTools() {
 
     if (toolName === 'getTimeOfDay') {
       const toolResp = getTimeOfDay();
+      context.push(response.choices[0].message);
+      context.push({
+        role: 'tool',
+        content: toolResp,
+        tool_call_id: toolCall.id,
+      });
+    }
+
+    if (toolName === 'getOrderStatus') {
+      const args = toolCall.function.arguments;
+      const parsArgs = JSON.parse(args);
+      const toolResp = getOrderStatus(parsArgs.orderId);
       context.push(response.choices[0].message);
       context.push({
         role: 'tool',
