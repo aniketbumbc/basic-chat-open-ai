@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 const openai = new OpenAI();
-let booksData: any = [];
 import { fetchBooksApi } from './fetch';
+const pageNumber = process.argv[2] || '2';
 
 function getTimeOfDay() {
   let date = new Date();
@@ -22,12 +22,13 @@ async function callOpenAIWithTools() {
     {
       role: 'system',
       content:
-        'You are helpful assistance that gives information for 54 years people',
+        'You are helpful assistance that gives information for 54 years people tell them why read list books',
     },
 
     {
       role: 'user',
-      content: 'I would like to top 10 books from list',
+      content:
+        'Based on enter number send me 5 books list with number ' + pageNumber,
     },
   ];
   const response = await openai.chat.completions.create({
@@ -46,11 +47,20 @@ async function callOpenAIWithTools() {
         type: 'function',
         function: {
           name: 'fetchBooksApi',
-          description: 'Getting the list of the books from goodReaders.',
+          description: 'get booklist based on enter number',
+          parameters: {
+            type: 'object',
+            properties: {
+              bookPage: {
+                type: 'integer',
+                description: 'The bookPage number',
+              },
+            },
+            required: ['bookPage'],
+          },
         },
       },
     ],
-    tool_choice: 'auto',
   });
 
   const willInvokeFunction = response.choices[0].finish_reason === 'tool_calls';
@@ -69,7 +79,10 @@ async function callOpenAIWithTools() {
     }
 
     if (toolName === 'fetchBooksApi') {
-      const toolResp = await fetchBooksApi().then((data) => data);
+      const args = toolCall.function.arguments;
+      const parsArgs = JSON.parse(args);
+      console.log('pageArgs', parsArgs);
+      const toolResp = await fetchBooksApi(parsArgs.bookPage);
       const newJsonResp = JSON.stringify(toolResp);
       context.push(response.choices[0].message);
       context.push({

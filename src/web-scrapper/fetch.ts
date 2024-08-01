@@ -1,6 +1,6 @@
-export const fetchBooksApi = async () => {
-  const url =
-    'https://openlibrary.org/search.json?q=cricket&mode=everything&page=2';
+export const fetchBooksApi = async (num: Number) => {
+  const url = `https://openlibrary.org/search.json?q=cricket&mode=everything&page=${num}`;
+  console.log(url);
   const bookList: any = [];
   const response = await fetch(url)
     .then((response) => response.json())
@@ -12,5 +12,3 @@ export const fetchBooksApi = async () => {
     });
   return bookList;
 };
-
-fetchBooksApi();
