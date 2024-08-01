@@ -21,14 +21,15 @@ async function callOpenAIWithTools() {
   const context: OpenAI.Chat.ChatCompletionMessageParam[] = [
     {
       role: 'system',
-      content:
-        'You are helpful assistance that gives information for 54 years people tell them why read list books',
+      content: 'give detail information',
     },
 
     {
       role: 'user',
       content:
-        'Based on enter number send me 5 books list with number ' + pageNumber,
+        '5 books list with number ' +
+        pageNumber +
+        'there introduction and writer name',
     },
   ];
   const response = await openai.chat.completions.create({
