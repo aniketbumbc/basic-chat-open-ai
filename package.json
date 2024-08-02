@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node --env-file=.env src/index.js",
     "start-chat": "node -r ts-node/register --env-file=.env src/tool/index.ts",
-    "start-fn-call": "node -r ts-node/register --env-file=.env src/web-scrapper/index.ts"
+    "start-fn-call": "node -r ts-node/register --env-file=.env src/web-scrapper/index.ts",
+    "start-image": "node -r ts-node/register --env-file=.env src/openai-image/index.ts"
   },
   "keywords": [],
   "author": "",
