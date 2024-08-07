@@ -8,7 +8,9 @@
     "start-chat": "node -r ts-node/register --env-file=.env src/tool/index.ts",
     "start-fn-call": "node -r ts-node/register --env-file=.env src/web-scrapper/index.ts",
     "start-image": "node -r ts-node/register --env-file=.env src/openai-image/index.ts",
-    "start-audio": "node -r ts-node/register --env-file=.env src/openai-image/audio.ts"
+    "start-audio": "node -r ts-node/register --env-file=.env src/openai-image/audio.ts",
+    "start-embed": "node -r ts-node/register --env-file=.env src/embeddings/data.ts",
+    "start-similarity": "node -r ts-node/register --env-file=.env src/embeddings/similarities.ts"
   },
   "keywords": [],
   "author": "",
