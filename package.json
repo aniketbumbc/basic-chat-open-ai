@@ -10,13 +10,16 @@
     "start-image": "node -r ts-node/register --env-file=.env src/openai-image/index.ts",
     "start-audio": "node -r ts-node/register --env-file=.env src/openai-image/audio.ts",
     "start-embed": "node -r ts-node/register --env-file=.env src/embeddings/data.ts",
-    "start-similarity": "node -r ts-node/register --env-file=.env src/embeddings/similarities.ts"
+    "start-similarity": "node -r ts-node/register --env-file=.env src/embeddings/similarities.ts",
+    "start-movie": "node -r ts-node/register --env-file=.env src/move-recommendation/movie.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.2",
+    "convert-csv-to-json": "^2.48.0",
+    "csvtojson": "^2.0.10",
     "dotenv": "^16.4.5",
     "form-data": "^4.0.0",
     "openai": "^4.53.1",
