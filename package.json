@@ -12,7 +12,8 @@
     "start-embed": "node -r ts-node/register --env-file=.env src/embeddings/data.ts",
     "start-similarity": "node -r ts-node/register --env-file=.env src/embeddings/similarities.ts",
     "start-movie": "node -r ts-node/register --env-file=.env src/move-recommendation/movie.ts",
-    "start-load-movie": "node -r ts-node/register --env-file=.env src/move-recommendation/load-movies.ts"
+    "start-load-movie": "node -r ts-node/register --env-file=.env src/move-recommendation/load-movies.ts",
+    "start-langchian": "node -r ts-node/register --env-file=.env src/langchain/Model.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "csvtojson": "^2.0.10",
     "dotenv": "^16.4.5",
     "form-data": "^4.0.0",
+    "langchain": "^0.2.15",
     "openai": "^4.53.1",
     "tiktoken": "^1.0.15"
   },
