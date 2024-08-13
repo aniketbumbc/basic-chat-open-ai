@@ -38,7 +38,7 @@ async function fromMessage() {
     product_name: 'Ferrari',
   });
 
-  console.log(response.content);
+  console.log(response);
 }
 
 fromMessage();
