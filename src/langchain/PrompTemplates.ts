@@ -25,7 +25,7 @@ async function fromTemplate() {
 
 async function fromMessage() {
   const prompt = ChatPromptTemplate.fromMessages([
-    ['system', 'Write a short description for 10 years boy'],
+    ['system', 'Write a short description of product for 30 years men'],
     ['human', '{product_name}'],
   ]);
 
@@ -35,10 +35,10 @@ async function fromMessage() {
 
   const chain = prompt.pipe(model);
   const response = await chain.invoke({
-    product_name: 'Ferrari',
+    product_name: 'bicycle',
   });
 
-  console.log(response);
+  console.log(response.content);
 }
 
 fromMessage();

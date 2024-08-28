@@ -14,7 +14,8 @@
     "start-movie": "node -r ts-node/register --env-file=.env src/move-recommendation/movie.ts",
     "start-load-movie": "node -r ts-node/register --env-file=.env src/move-recommendation/load-movies.ts",
     "start-langchian": "node -r ts-node/register --env-file=.env src/langchain/Model.ts",
-    "start-langchian-prompt": "node -r ts-node/register --env-file=.env src/langchain/PrompTemplates.ts"
+    "start-langchian-prompt": "node -r ts-node/register --env-file=.env src/langchain/PrompTemplates.ts",
+    "start-langchian-rag": "node -r ts-node/register --env-file=.env src/langchain/RAG/Basic.ts"
   },
   "keywords": [],
   "author": "",
